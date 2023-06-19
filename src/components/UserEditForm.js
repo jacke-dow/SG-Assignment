@@ -20,12 +20,6 @@ const UserEditForm = ({ user, updateUser, cancelEdit }) => {
     // Perform form validation
     let isValid = true;
 
-    if (!name) {
-      isValid = false;
-      alert("Please enter a name");
-      return;
-    }
-
     if (!email || !validateEmail(email)) {
       isValid = false;
       setEmailError("Please enter a valid email");
@@ -70,12 +64,6 @@ const UserEditForm = ({ user, updateUser, cancelEdit }) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
       <input
         type="email"
         placeholder="Email"
