@@ -48,6 +48,7 @@ const App = () => {
 
   return (
     <div className={styles.container}>
+      <h1 style={{textAlign: "center"}}>User Management Web App   </h1>
       <UserForm addUser={addUser} />
       <div className={styles.userList}>
         {users.map((user, index) => (
