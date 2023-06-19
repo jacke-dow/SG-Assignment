@@ -20,6 +20,7 @@ const UserEditForm = ({ user, updateUser, cancelEdit }) => {
     // Perform form validation
     let isValid = true;
 
+
     if (!email || !validateEmail(email)) {
       isValid = false;
       setEmailError("Please enter a valid email");
@@ -63,28 +64,35 @@ const UserEditForm = ({ user, updateUser, cancelEdit }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      {emailError && <span className={styles.error}>{emailError}</span>}
-      <input
-        type="tel"
-        placeholder="Phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
-      {phoneError && <span className={styles.error}>{phoneError}</span>}
-      <div className={styles.buttons}>
-        <button type="submit">Update</button>
-        <button type="button" onClick={handleCancel}>
-          Cancel
-        </button>
+      <div className={styles.modal}>
+        <div className={styles.modalContent}>
+          <h3>Edit Email & Phone</h3>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{backgroundColor: "lightgrey"}}
+            />
+            {emailError && <span className={styles.error}>{emailError}</span>}
+            <input
+                type="tel"
+                placeholder="Phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                style={{backgroundColor: "lightgrey"}}
+            />
+            {phoneError && <span className={styles.error}>{phoneError}</span>}
+            <div className={styles.buttons}>
+              <button type="submit">Update</button>
+              <button type="button" onClick={handleCancel}>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
   );
 };
 
