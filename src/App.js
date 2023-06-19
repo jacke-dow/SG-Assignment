@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
-import UserForm from './UserForm';
-import UserEditForm from './UserEditForm';
+import React, { useState } from "react";
+import UserForm from "./components/UserForm";
+import UserEditForm from "./components/UserEditForm";
+import styles from "./App.module.css";
 
 const App = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([
+    {
+      name: "John Doe",
+      email: "johndoe@example.com",
+      phone: "1234567890",
+    },
+    {
+      name: "Jane Smith",
+      email: "janesmith@example.com",
+      phone: "9876543210",
+    },
+  ]);
   const [editUser, setEditUser] = useState(null);
 
   const addUser = (user) => {
@@ -12,7 +24,9 @@ const App = () => {
 
   const updateUser = (updatedUser) => {
     const updatedUsers = [...users];
-    const index = updatedUsers.findIndex((user) => user.name === updatedUser.name);
+    const index = updatedUsers.findIndex(
+      (user) => user.name === updatedUser.name
+    );
     updatedUsers[index] = updatedUser;
     setUsers(updatedUsers);
     setEditUser(null);
@@ -28,21 +42,41 @@ const App = () => {
     setEditUser(user);
   };
 
+  const cancelEdit = () => {
+    setEditUser(null);
+  };
+
   return (
-    <div>
+    <div className={styles.container}>
       <UserForm addUser={addUser} />
-      <div>
+      <div className={styles.userList}>
         {users.map((user, index) => (
-          <div key={index}>
+          <div key={index} className={styles.userCard}>
             <h3>{user.name}</h3>
             <p>Email: {user.email}</p>
             <p>Phone: {user.phone}</p>
-            <button onClick={() => handleEditUser(user)}>Edit</button>
-            <button onClick={() => deleteUser(index)}>Delete</button>
+            <button
+              className={styles.editButton}
+              onClick={() => handleEditUser(user)}
+            >
+              Edit
+            </button>
+            <button
+              className={styles.deleteButton}
+              onClick={() => deleteUser(index)}
+            >
+              Delete
+            </button>
+            {editUser && editUser.name === user.name && (
+              <UserEditForm
+                user={editUser}
+                updateUser={updateUser}
+                cancelEdit={cancelEdit}
+              />
+            )}
           </div>
         ))}
       </div>
-      {editUser && <UserEditForm user={editUser} updateUser={updateUser} />}
     </div>
   );
 };
